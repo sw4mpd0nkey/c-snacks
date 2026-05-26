@@ -1,7 +1,6 @@
 #include "vector.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
 
 void init(Vector *vec, int data) {
