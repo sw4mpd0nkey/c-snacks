@@ -26,7 +26,12 @@ int main() {
         if (pthread_create(&threads[i], NULL, thread_function, NULL) != 0) {
             perror("Failed to create thread");
             return -1;
-        }   
+        }  
+       
+        // pthread_join blocks, pthread_detach doesm't
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            pthread_join(&threads[i], NULL);   
+        }
     }
 
     return 0;
