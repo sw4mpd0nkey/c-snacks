@@ -47,9 +47,9 @@ generic_object_t *new_generic_vector3(generic_object_t *x, generic_object_t *y,
 
 generic_object_t *new_generic_array(size_t size);
 
-void refcount_inc(snek_object_t *obj);
-void refcount_dec(snek_object_t *obj);
-void refcount_free(snek_object_t *obj);
+void refcount_inc(generic_object_t *obj);
+void refcount_dec(generic_object_t *obj);
+void refcount_free(generic_object_t *obj);
 
 bool generic_array_set(generic_object_t *array, size_t index, generic_object_t *value);
 generic_object_t *generic_array_get(generic_object_t *array, size_t index);

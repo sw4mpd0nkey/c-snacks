@@ -1,6 +1,7 @@
 #include "generic-obj.h"
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 generic_object_t *generic_add(generic_object_t *a, generic_object_t *b) {
   if (a == NULL || b == NULL) {
@@ -58,11 +59,11 @@ generic_object_t *generic_add(generic_object_t *a, generic_object_t *b) {
         generic_object_t *new_array = new_generic_array(new_size);
         int index = 0;
         
-        for (int i = 0; i < a->data.v_array.size; i++) {
+        for (size_t i = 0; i < a->data.v_array.size; i++) {
           generic_array_set(new_array, index, generic_array_get(a,i));
           index++;
         }
-        for (int i = 0; i < b->data.v_array.size; i++) {
+        for (size_t i = 0; i < b->data.v_array.size; i++) {
           generic_array_set(new_array, index, generic_array_get(b,i));
           index++;
         }
@@ -169,7 +170,7 @@ generic_object_t *new_generic_vector3(generic_object_t *x, generic_object_t *y,
     return NULL;
   }
 
-  generic_object_t *obj = _new_generic_object()
+  generic_object_t *obj = _new_generic_object();
   if (obj == NULL) {
     return NULL;
   }
@@ -259,7 +260,7 @@ void refcount_free(generic_object_t *obj) {
     refcount_dec(vec.z);
     break;
   case ARRAY:
-    for (int i = 0; i <= obj->data.v_array.size - 1; i++) {
+    for (size_t i = 0; i <= obj->data.v_array.size - 1; i++) {
       refcount_dec(obj->data.v_array.elements[i]);
     }
     free(obj->data.v_array.elements);
