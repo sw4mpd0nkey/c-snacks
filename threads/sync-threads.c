@@ -7,21 +7,33 @@
 #define THREAD_COUNT 10
 
 int counter = 0;
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 // Thread function to execute.
 void *thread_target(void *vargs) {
 
-    // critical section
-    //mutex, semaphores
+    /*
+        uses a mutex to block so only one thread can do this critical
+        sectoin at a time. this is very unperformant tho, since there 
+        is only ever 1 thread that gets to pass and 9 in starvation
+    */
+    pthread_mutex_lock(&lock);
+    
     for (int i = 0; i < 1000000; i++) {
         counter++;
     }
-
+    
+    pthread_mutex_unlock(&lock);
+    
     printf("Counter is %d\n", counter);
+
+    return NULL;
 }
 
 int main() {
     pthread_t threads[THREAD_COUNT];
+
+    pthread_mutex_init(&lock, NULL);
     
     for (int i = 0; i < THREAD_COUNT; i++) {
 
