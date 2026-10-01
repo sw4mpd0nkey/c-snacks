@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <winsock2.h>
 
+/*
+i686-w64-mingw32-g++ windows.c -o windoes.exe -lws2_32 -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc -fpermissive
+*/
 
 WSADATA socketData;
 SOCKET mainSocket;
